@@ -1,0 +1,44 @@
+<h1>Custom Filter Example</h1>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h2>Description:</h2>
+    <p>This example creates a simple filter named <code>startsWith</code>, e.g. usable by <code>ng-repeat</code>.</p>
+
+    <h2>Use Filter</h2>
+    <p>Try filter the list below by typing in something.</p>
+    <div class="form-group">
+      <label class="control-label" for="filter">Filter:</label>
+      <input ng-model="query" class="form-control" id="filter" type="text" placeholder="entry starts with ...">
+    </div>
+    <p>Results: <span class="results">{{result.length}}</span></p>
+    <ul class="results">
+      <li ng-repeat="entry in controller.entries | startsWith:query | orderBy:'id' as result">
+        <span class="text-muted">#{{entry.id}}.</span>
+        <span class="text-info">{{entry.name}}</span>
+      </li>
+    </ul>
+
+    <h2>Example Location:</h2>
+    <p><code>app/examples/filter/</code></p>
+
+    <h2>Files:</h2>
+    <ul class="text-muted">
+      <li>
+        <code>filter.module.js</code>
+        <small> - module creation</small>
+      </li>
+      <li>
+        <code>filter.route.js</code>
+        <small> - template routing</small>
+      </li>
+      <li>
+        <code>filter.filter.js</code>
+        <small> - filter creation</small>
+      </li>
+      <li>
+        <code>filter.tpl.html</code>
+        <small> - content template</small>
+      </li>
+    </ul>
+  </div>
+</div>

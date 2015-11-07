@@ -1,0 +1,33 @@
+{
+  "name": "angular-best-practice",
+  "description": "This is a best practice AngularJS package.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/eisbehr-/angular-best-practice",
+  "authors": [{
+    "name": "Daniel 'Eisbehr' Kern",
+    "email": "work@eisbehr.de",
+    "homepage": "http://eisbehr.de"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eisbehr-/angular-best-practice.git"
+  },
+  "keywords": [
+    "angular",
+    "angularjs",
+    "jasmin",
+    "karma",
+    "protractor"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-loader": "~1.4.7",
+    "angular-messages": "1.4.7",
+    "angular-ui-router": "0.2.15",
+    "bootstrap": "~3.3.0",
+    "bootstrap-material-design": "~0.1.5"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.7"
+  }
+}

@@ -1,0 +1,16 @@
+# temp files, logs & reports
+tests/output/karma-result.xml
+
+# dependencies
+node_modules/
+bower_components/
+
+# system files
+Thumbs.db
+.DS_Store
+
+# ide
+.idea
+
+# psydo standard to track empty directories
+!.gitkeep

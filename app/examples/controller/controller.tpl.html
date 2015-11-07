@@ -1,0 +1,29 @@
+<h1>{{controller.headline}}</h1>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h2>Description:</h2>
+    <p>This example creates a view-controller pair with custom url route.</p>
+    <p>
+      In result it will route <code>#/controller</code> to template <code>examples/controller/controller.tpl.html</code>
+      and receive most of it's displayed information from the controller and delivers a content function <code>action()</code> for the button below.
+    </p>
+
+    <h2>Controller Action</h2>
+    <div class="form-group">
+      <label class="control-label" for="name">Default input</label>
+      <input ng-model="myName" class="form-control" id="name" type="text" placeholder="Angular">
+    </div>
+    <button class="btn btn-primary" ng-click="controller.action(myName)">click me</button>
+
+    <h2>Example Location:</h2>
+    <p><code>{{controller.location}}</code></p>
+
+    <h2>Files:</h2>
+    <ul class="text-muted">
+      <li ng-repeat="file in controller.files">
+        <code>{{file.name}}</code>
+        <small> - {{file.description}}</small>
+      </li>
+    </ul>
+  </div>
+</div>

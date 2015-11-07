@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html lang="en" ng-app="practice" ng-strict-di class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html lang="en" ng-app="practice" ng-strict-di class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html lang="en" ng-app="practice" ng-strict-di class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" ng-app="practice" ng-strict-di class="no-js"><!--<![endif]-->
+  <head>
+    <title>Angular Practice App</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap-material-design/dist/css/ripples.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap-material-design/dist/css/material-wfont.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
+  <body>
+    <nav ng-controller="practice.navController as controller" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a ng-click="controller.resetActive()" class="navbar-brand" href="#/">Angular Best Practice</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a ng-click="controller.setActive($event)" href="#/view">View / Routing</a></li>
+            <li><a ng-click="controller.setActive($event)" href="#/controller">Controller</a></li>
+            <li><a ng-click="controller.setActive($event)" href="#/directives">Directives</a></li>
+            <li><a ng-click="controller.setActive($event)" href="#/service">Service</a></li>
+            <li><a ng-click="controller.setActive($event)" href="#/filter">Filter</a></li>
+            <li><a ng-click="controller.setActive($event)" href="#/promise">Promises</a></li>
+            <li><a ng-click="controller.setActive($event)" href="#/error">Error 404</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section class="content container" ui-view></section>
+    <footer>
+      <div class="container text-right">
+        <small class="text-muted">created by Daniel '<a href="http://www.eisbehr.de" target="_blank">Eisbehr</a>' Kern</small>
+      </div>
+    </footer>
+    <!-- angular -->
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <!-- app -->
+    <script src="app.js"></script>
+    <script src="core/core.module.js"></script>
+    <script src="core/nav.controller.js"></script>
+    <script src="home/home.module.js"></script>
+    <script src="home/home.route.js"></script>
+
+    <!-- controller example -->
+    <script src="examples/controller/controller.module.js"></script>
+    <script src="examples/controller/controller.route.js"></script>
+    <script src="examples/controller/controller.controller.js"></script>
+
+    <!-- directives example -->
+    <script src="examples/directives/directives.module.js"></script>
+    <script src="examples/directives/directives.route.js"></script>
+    <script src="examples/directives/directives.simple.directive.js"></script>
+    <script src="examples/directives/directives.controller.directive.js"></script>
+
+    <!-- error example -->
+    <script src="examples/error/error.module.js"></script>
+    <script src="examples/error/error.route.js"></script>
+
+    <!-- filter example -->
+    <script src="examples/filter/filter.module.js"></script>
+    <script src="examples/filter/filter.route.js"></script>
+    <script src="examples/filter/filter.filter.js"></script>
+    <script src="examples/filter/filter.controller.js"></script>
+
+    <!-- promises example -->
+    <script src="examples/promise/promise.module.js"></script>
+    <script src="examples/promise/promise.route.js"></script>
+    <script src="examples/promise/promise.service.js"></script>
+    <script src="examples/promise/promise.controller.js"></script>
+
+    <!-- service example -->
+    <script src="examples/service/service.module.js"></script>
+    <script src="examples/service/service.route.js"></script>
+    <script src="examples/service/service.service.js"></script>
+    <script src="examples/service/service.controller.js"></script>
+
+    <!-- view routing example -->
+    <script src="examples/view/view.module.js"></script>
+    <script src="examples/view/view.route.js"></script>
+  </body>
+</html>

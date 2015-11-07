@@ -1,0 +1,30 @@
+{
+  "globalstrict": true,
+  "validthis": true,
+  "browser" : true,
+  "browserify" : true,
+  "devel" : true,
+  "jquery": true,
+  "jasmine": true,
+  "node" : true,
+  "shelljs" : true,
+  "globals": {
+    "console": true,
+    "__dirname": true,
+    "require": true,
+    "angular": false,
+    "describe": false,
+    "it": false,
+    "xdescribe": false,
+    "xit": false,
+    "expect": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "module": false,
+    "inject": false,
+    "process": true,
+    "by": true,
+    "browser": true,
+    "element": true
+  }
+}

@@ -1,0 +1,46 @@
+<h1>Service Example</h1>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h2>Description:</h2>
+    <p>This example creates a simple service named <code>practiceService</code> with two public functions <code>publicFunction</code> and <code>verboseMessage</code>.</p>
+
+    <h2>Use Service</h2>
+    <p>
+      Trigger the service function by buttons below.
+      Type in a custom message to demonstrate passing parameters.
+    </p>
+    <div class="form-group">
+      <label class="control-label" for="message">Message to verbose:</label>
+      <input ng-model="controller.message" class="form-control" id="message" type="text">
+    </div>
+    <button ng-click="controller.service.publicFunction()" class="btn btn-primary" style="text-transform: none;">practiceService.publicFunction();</button>
+    <button ng-click="controller.service.verboseMessage(controller.message)" class="btn btn-primary" style="text-transform: none;">practiceService.verboseMessage(message);</button>
+
+    <h2>Example Location:</h2>
+    <p><code>app/examples/service/</code></p>
+
+    <h2>Files:</h2>
+    <ul class="text-muted">
+      <li>
+        <code>service.module.js</code>
+        <small> - module creation</small>
+      </li>
+      <li>
+        <code>service.route.js</code>
+        <small> - template routing</small>
+      </li>
+      <li>
+        <code>service.controller.js</code>
+        <small> - view controller</small>
+      </li>
+      <li>
+        <code>service.service.js</code>
+        <small> - service creation</small>
+      </li>
+      <li>
+        <code>service.tpl.html</code>
+        <small> - content template</small>
+      </li>
+    </ul>
+  </div>
+</div>

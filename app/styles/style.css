@@ -1,0 +1,8 @@
+html *                       { outline: none !important; }
+h1                           { margin-bottom: 25px; }
+ul                           { margin-bottom: 0; }
+section.content              { padding-top: 65px; }
+footer                       { margin-top: -15px; font-size: .9em; }
+.panel-body h2               { margin-top: 40px; }
+.panel-body h2:first-of-type { margin-top: 0; }
+.panel-body ul               { list-style: square inside; padding: 0; }
