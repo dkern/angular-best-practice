@@ -1,4 +1,4 @@
-# AngularJS Best-Practice App Package
+# AngularJS Empty Best-Practice App Package
 
 ### Table of Contents
 * [What is this?](#what-is-this)
@@ -8,7 +8,6 @@
 * [Run Application and start development Server](#run-application-and-start-development-server)
 * [Run Tests](#run-tests)
 * [Run UI Tests](#run-ui-tests)
-* [Build Application for Deployment](#build-application-for-deployment)
 * [Why bower AND npm?](#why-bower-and-npm)
 * [Bugs / Feature request](#bugs--feature-request)
 
@@ -82,9 +81,6 @@ $ npm run start-webdriver
 ```SH
 $ npm run protractor
 ```
-
-## Build Application for Deployment
-// ToDo :(
 
 ## Why bower AND npm?
 It is possible to do everything by `package.json` over `npn`.
