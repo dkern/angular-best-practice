@@ -1,7 +1,5 @@
 # AngularJS Best-Practice App Package
 
----
-
 ### Table of Contents
 * [What is this?](#what-is-this)
 * [Features](#features)
@@ -29,7 +27,7 @@ Beside the AngularJS demonstrations this package even contain a complete setup.
 Usable as template for future projects.
 Containing:
 - dependency loading and startup with [npm](http://npmjs.com) and [bower](http://bower.io)
-- better IDE support with `jshint` by `.jshintrc` file
+- better IDE support with [jshin](http://jshint.com) by [.jshintrc](https://github.com/jshint/jshint/blob/master/examples/.jshintrc) file
 - included simple development web-server with [node.js](http://nodejs.org) and [express](http://expressjs.com)
 - testing angular with [jasmin](https://jasmine.github.io) and [karma](https://karma-runner.github.io)
 - ui testing with [jasmin](https://jasmine.github.io) and [protractor](https://angular.github.io/protractor)
@@ -42,46 +40,51 @@ For some automatically npm builds you will even need a version of [python](http:
 ## Installation
 This app will install all required dependencies automatically. 
 Just start the commands below in the root folder where you stored the package.
-``SH
+```SH
 $ npm install
-``
+```
 
 ## Run Application and start development Server
 To run this app in your browser just start everything whit the comment below in the applications root folder.
 It will update everything an start a simple web server on ``http://localhost:1337/``
-``SH
+```SH
 $ npm start
-``
+```
 
 ## Run Tests
-All unit tests are performed with [jasmin](https://jasmine.github.io) and [karma](https://karma-runner.github.io).
+All unit tests are performed with [jasmin](https://jasmine.github.io) and [karma](https://karma-runner.github.io) and can be configured in `karma.conf.js`.
 Predefined are dependencies for `PhantomJS`, `Firefox` and `Chrome`.
-You might define the environment variables `FIREFOX_BIN` and `CHROME_BIN` to locate your browsers correctly.
+On windows you may have to define the environment variables `FIREFOX_BIN` and `CHROME_BIN` to locate your browsers correctly.
 
 Run command below to execute all unit test:
-``SH
+```SH
 $ npm test
-``
+```
 
 ## Run UI Tests
-All end-to-end tests are performed with [jasmin](https://jasmine.github.io) and [protractor](https://angular.github.io/protractor).
+All end-to-end tests are performed with [jasmin](https://jasmine.github.io) and [protractor](https://angular.github.io/protractor) and can be configures in `protractor.conf.js`.
 Make sure your development web-server and `webdriver-manager` is running.
-You will need three open shells. 
+You will need three open shells to accomplish that. 
+
+You can run test in different Browsers.
+By default of this package `Chrome` is predefined.
+On windows you my need to add the installation path of your browsers to the `PATH` environment variable.
+
 **Start Web-Server:**
-``SH
+```SH
 $ npm start
-``
+```
 **Start Webdriver-Manager:**
-``SH
+```SH
 $ npm run start-webdriver
-``
+```
 **Execute e2e tests:**
-``SH
+```SH
 $ npm run protractor
-``
+```
 
 ## Build Application for Deployment
-// ToDo
+// ToDo :(
 
 ## Why bower AND npm?
 It is possible to do everything by `package.json` over `npn`.
