@@ -20,6 +20,7 @@ It tries to use the best-practice design pattern for everything and is inspired 
 - [johnpapa/angular-styleguide](https://github.com/johnpapa/angular-styleguide)
 - [angular/angular-seed](https://github.com/angular/angular-seed)
 - [paislee/healthy-gulp-angular](https://github.com/paislee/healthy-gulp-angular)
+- [lordkada/healthy-gulp-angular](https://github.com/lordkada/healthy-gulp-angular)
 - [Gregor Woiwode](https://github.com/GregOnNet)
 
 ## Features
