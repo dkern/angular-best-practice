@@ -8,10 +8,16 @@
     function route($stateProvider, $urlRouterProvider) {
         $stateProvider.state("error", {
             url: "/error",
-            templateUrl: "examples/error/error.tpl.html"
+            templateProvider: getTemplate
         });
 
         // route every unknown request to error page
         $urlRouterProvider.otherwise("/error");
+
+        getTemplate.$inject = ["$templateCache"];
+
+        function getTemplate($templateCache) {
+            return $templateCache.get("examples/error/error.tpl.html");
+        }
     }
 }());

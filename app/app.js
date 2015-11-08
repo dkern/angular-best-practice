@@ -1,6 +1,8 @@
 (function() {
     'use strict';
     angular.module("practice", [
+        // app partials - configured in gulpfile.js
+        "practice.partials",
         // app home
         "practice.home",
         // examples

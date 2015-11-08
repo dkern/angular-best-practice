@@ -8,10 +8,16 @@
     function route($stateProvider, $urlRouterProvider) {
         $stateProvider.state("home", {
             url: "/",
-            templateUrl: "home/home.tpl.html"
+            templateProvider: getTemplate
         });
 
         // route empty request to home page
         $urlRouterProvider.when("", "/");
+
+        getTemplate.$inject = ["$templateCache"];
+
+        function getTemplate($templateCache) {
+            return $templateCache.get("home/home.tpl.html");
+        }
     }
 }());

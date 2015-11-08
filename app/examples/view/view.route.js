@@ -8,7 +8,13 @@
     function route($stateProvider) {
         $stateProvider.state("view", {
             url: "/view",
-            templateUrl: "examples/view/view.tpl.html"
+            templateProvider: getTemplate
         });
+
+        getTemplate.$inject = ["$templateCache"];
+
+        function getTemplate($templateCache) {
+            return $templateCache.get("examples/view/view.tpl.html");
+        }
     }
 }());

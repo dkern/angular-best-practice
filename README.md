@@ -84,7 +84,13 @@ $ npm run protractor
 ```
 
 ## Build Application for Deployment
-// ToDo :(
+Development and productive builds are handled by [gulp](http://gulpjs.com).
+There are a bunch of pre-defined task you can execute.
+To build a clean productive environment run the task below.
+The result will be stored unter `dist/productive/`
+```SH
+$ gulp clean-build-app-prod
+```
 
 ## Why bower AND npm?
 It is possible to do everything by `package.json` over `npn`.

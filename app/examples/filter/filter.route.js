@@ -8,8 +8,14 @@
     function route($stateProvider) {
         $stateProvider.state("filter", {
             url: "/filter",
-            templateUrl: "examples/filter/filter.tpl.html",
+            templateProvider: getTemplate,
             controller: "practice.filterController as controller"
         });
+        
+        getTemplate.$inject = ["$templateCache"];
+
+        function getTemplate($templateCache) {
+            return $templateCache.get("examples/filter/filter.tpl.html");
+        }
     }
 }());

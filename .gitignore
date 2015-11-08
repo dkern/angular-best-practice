@@ -1,6 +1,10 @@
 # temp files, logs & reports
 tests/output/karma-result.xml
 
+# gulp generated distributions
+/dist/development
+/dist/productive
+
 # dependencies
 node_modules/
 bower_components/

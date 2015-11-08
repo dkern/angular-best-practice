@@ -8,7 +8,13 @@
     function route($stateProvider) {
         $stateProvider.state("directives", {
             url: "/directives",
-            templateUrl: "examples/directives/directives.tpl.html"
+            templateProvider: getTemplate
         });
+
+        getTemplate.$inject = ["$templateCache"];
+
+        function getTemplate($templateCache) {
+            return $templateCache.get("examples/directives/directives.tpl.html");
+        }
     }
 }());

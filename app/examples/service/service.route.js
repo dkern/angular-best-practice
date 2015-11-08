@@ -8,8 +8,14 @@
     function route($stateProvider) {
         $stateProvider.state("service", {
             url: "/service",
-            templateUrl: "examples/service/service.tpl.html",
+            templateProvider: getTemplate,
             controller: "practice.serviceController as controller"
         });
+
+        getTemplate.$inject = ["$templateCache"];
+
+        function getTemplate($templateCache) {
+            return $templateCache.get("examples/service/service.tpl.html");
+        }
     }
 }());
