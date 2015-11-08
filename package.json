@@ -1,6 +1,6 @@
 {
   "name": "angular-best-practice",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "AngularJS - Best Practice",
   "description": "This is a best practice AngularJS package.",
   "homepage": "https://github.com/eisbehr-/angular-best-practice",
@@ -45,6 +45,7 @@
     "gulp-order": "^1.1.1",
     "gulp-print": "^1.1.0",
     "gulp-rename": "^1.2.2",
+    "gulp-rev": "^6.0.1",
     "gulp-sass": "^1.3.2",
     "gulp-sourcemaps": "^1.3.0",
     "gulp-uglify": "^1.1.0",

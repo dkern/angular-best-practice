@@ -1,13 +1,14 @@
 "use strict";
 
-var gulp = require("gulp");
-var plugins = require("gulp-load-plugins")();
-var gutil = require("gulp-util");
-var del = require("del");
-var es = require("event-stream");
+var gulp       = require("gulp");
+var plugins    = require("gulp-load-plugins")();
+var gutil      = require("gulp-util");
+var del        = require("del");
+var rev        = require("gulp-rev");
+var es         = require("event-stream");
 var bowerFiles = require("main-bower-files");
-var print = require("gulp-print");
-var Q = require("q");
+var print      = require("gulp-print");
+var Q          = require("q");
 
 
 
@@ -17,22 +18,23 @@ var Q = require("q");
 
 
 
+// name of the generated partials angular module by "ngHtml2js"
+var partialModuleName = "practice.partials";
+
 // include source maps in production files
 var includeSourceMaps = false;
 
-// name of the generated partials module by "ngHtml2js"
-var partialModuleName = "practice.partials";
+// add a timestamp to all development scripts and styles
+var addTimestampToDevelopmentFiles = true;
 
-// folder where the server file is stored
-var serverFolder = "server/";
-
-// name of the server script inside "serverFolder"
-var serverFile = "server.js";
+// add a timestamp to all productive scripts and styles
+var addTimestampToProductiveFiles = true;
 
 // define your file paths
 var paths = {
     scripts: "app/**/*.js",
     styles: "./app/**/*.css",
+    fonts: ["./app/**/*.ttf", "./app/**/*.eot", "./app/**/*.svg", "./app/**/*.woff", "./app/**/*.woff2"],
     images: "./images/**/*",
     index: "./app/index.html",
     partials: ["app/**/*.html", "!app/index.html"],
@@ -42,10 +44,31 @@ var paths = {
     scriptsDevServer: "server/**/*.js"
 };
 
-var jsScriptsRegex =  /.js$/i,
-    cssStylesRegex = /.css$/i,
-    lessStylesRegex = /.less$/i,
-    fontsStylesRegex = /.(ttf|woff|eot|svg|woff2)$/i;
+// add non-main bower files to build
+var additionalVendorFiles = {
+    js: [],
+    css: [
+        "bower_components/bootstrap-material-design/dist/css/material-wfont.min.css"
+    ],
+    fonts: [
+        "bower_components/bootstrap-material-design/dist/fonts/Material-Design-Icons.eot",
+        "bower_components/bootstrap-material-design/dist/fonts/Material-Design-Icons.svg",
+        "bower_components/bootstrap-material-design/dist/fonts/Material-Design-Icons.ttf",
+        "bower_components/bootstrap-material-design/dist/fonts/Material-Design-Icons.woff"
+    ]
+};
+
+// folder where the server file is stored
+var serverFolder = "server/";
+
+// name of the server script inside "serverFolder"
+var serverFile = "server.js";
+
+// regex selectors for auto-loading files in pipes
+var jsScriptsRegex =  /.js$/i;
+var cssStylesRegex = /.css$/i;
+var lessStylesRegex = /.less$/i;
+var fontsStylesRegex = /.(ttf|woff|eot|svg|woff2)$/i;
 
 
 
@@ -65,8 +88,26 @@ pipes.noop = function() {
 // define order for vendor scripts
 pipes.orderedVendorScripts = function() {
     return plugins.order([
-        "jquery.js", 
-        "angular.js"
+        "jquery.js",
+        "jquery-*.js",
+        "angular.js",
+        "angular-*.js",
+        "bootstrap.js",
+        "bootstrap-*.js"
+    ]);
+};
+
+// define order for vendor styles
+pipes.orderedVendorStyles = function() {
+    return plugins.order([
+        "bootstrap.css",
+        "bootstrap-*.css",
+        "material.css",
+        "material-*.css",
+        "material-wfont.css",
+        "material-wfont-*.css",
+        "ripples.css",
+        "ripples-*.css"
     ]);
 };
 
@@ -92,6 +133,7 @@ pipes.validatedAppScripts = function() {
 // validate and move "path.scripts" to "path.distDev" development environment
 pipes.builtAppScriptsDev = function() {
     return pipes.validatedAppScripts()
+                .pipe(addTimestampToDevelopmentFiles ? rev() : pipes.noop())
                 .pipe(gulp.dest(paths.distDev));
 };
 
@@ -106,6 +148,7 @@ pipes.builtAppScriptsProd = function() {
              .pipe(plugins.concat("app.min.js"))
              .pipe(plugins.uglify())
              .pipe(includeSourceMaps ? plugins.sourcemaps.write() : pipes.noop())
+             .pipe(addTimestampToProductiveFiles ? rev() : pipes.noop())
              .pipe(gulp.dest(paths.distScriptsProd));
 };
 
@@ -114,6 +157,14 @@ pipes.builtVendorScriptsDev = function() {
     return gulp.src(bowerFiles({
                         filter: function(e) { return jsScriptsRegex.test(e); }
                     }))
+               .pipe(addTimestampToDevelopmentFiles ? rev() : pipes.noop())
+               .pipe(gulp.dest(paths.distDev + "/bower_components"));
+};
+
+// moves additional vendor scripts to "path.distDev" development environment
+pipes.builtAdditionalVendorScriptsDev = function() {
+    return gulp.src(additionalVendorFiles.js)
+               .pipe(addTimestampToDevelopmentFiles ? rev() : pipes.noop())
                .pipe(gulp.dest(paths.distDev + "/bower_components"));
 };
 
@@ -122,9 +173,20 @@ pipes.builtVendorScriptsProd = function() {
     return gulp.src(bowerFiles({
                         filter: function(e) { return jsScriptsRegex.test(e); }
                     }))
+              .pipe(pipes.orderedVendorScripts())
+              .pipe(plugins.concat("vendor.min.js"))
+              .pipe(plugins.uglify())
+              .pipe(addTimestampToProductiveFiles ? rev() : pipes.noop())
+              .pipe(gulp.dest(paths.distScriptsProd));
+};
+
+// concatenates, uglifies, and moves additional vendor scripts to "path.distProd" productive environment
+pipes.builtAdditionalVendorScriptsProd = function() {
+    return gulp.src(additionalVendorFiles.js)
                .pipe(pipes.orderedVendorScripts())
                .pipe(plugins.concat("vendor.min.js"))
                .pipe(plugins.uglify())
+               .pipe(addTimestampToProductiveFiles ? rev() : pipes.noop())
                .pipe(gulp.dest(paths.distScriptsProd));
 };
 
@@ -145,6 +207,7 @@ pipes.validatedPartials = function() {
 // moves html source files into "paths.distDev" development environment
 pipes.builtPartialsDev = function() {
     return pipes.validatedPartials()
+                .pipe(addTimestampToDevelopmentFiles ? rev() : pipes.noop())
                 .pipe(gulp.dest(paths.distDev));
 };
 
@@ -156,6 +219,7 @@ pipes.scriptedPartialsDev = function() {
                 .pipe(plugins.ngHtml2js({
                     moduleName: partialModuleName
                 }))
+                .pipe(addTimestampToDevelopmentFiles ? rev() : pipes.noop())
                 .pipe(gulp.dest(paths.distDev + "/templates"));
 };
 
@@ -169,12 +233,14 @@ pipes.scriptedPartialsProd = function() {
                 }))
                 .pipe(plugins.concat("templates.min.js"))
                 .pipe(plugins.uglify())
+                .pipe(addTimestampToProductiveFiles ? rev() : pipes.noop())
                 .pipe(gulp.dest(paths.distScriptsProd));
 };
 
 // moves css to "paths.distDev" development environment
 pipes.builtStylesDev = function() {
     return gulp.src(paths.styles)
+               .pipe(addTimestampToDevelopmentFiles ? rev() : pipes.noop())
                .pipe(gulp.dest(paths.distDev));
 };
 
@@ -189,21 +255,29 @@ pipes.buildVendorStylesLess = function() {
 // get vendor css files
 pipes.builtVendorCssStyles = function() {
     return gulp.src(bowerFiles({
-                        filter: function(e) { return cssStylesRegex.test(e); }
-                    }));
+        filter: function(e) { return cssStylesRegex.test(e); }
+    }));
+};
+
+// get additional vendor css files
+pipes.builtAdditionalVendorCssStyles = function() {
+    return gulp.src(additionalVendorFiles.css);
 };
 
 // compile and move vendor css files into "path.distDev" development environment
 pipes.builtVendorStylesDev = function() {
-    return es.merge(pipes.buildVendorStylesLess(), pipes.builtVendorCssStyles())
+    return es.merge(pipes.buildVendorStylesLess(), pipes.builtVendorCssStyles(), pipes.builtAdditionalVendorCssStyles())
+             .pipe(addTimestampToDevelopmentFiles ? rev() : pipes.noop())
              .pipe(gulp.dest(paths.distDev + "/styles"));
 };
 
 // compile, minifies, concatenates and move vendor css files into "path.distProd" productive environment
 pipes.builtVendorStylesProd = function() {
-    return es.merge(pipes.buildVendorStylesLess(), pipes.builtVendorCssStyles())
+    return es.merge(pipes.buildVendorStylesLess(), pipes.builtVendorCssStyles(), pipes.builtAdditionalVendorCssStyles())
+             .pipe(pipes.orderedVendorStyles())
              .pipe(plugins.concat("vendor.min.css"))
              .pipe(plugins.minifyCss())
+             .pipe(addTimestampToProductiveFiles ? rev() : pipes.noop())
              .pipe(gulp.dest(paths.distProd + "/styles"));
 };
 
@@ -214,28 +288,39 @@ pipes.builtStylesProd = function() {
                .pipe(plugins.minifyCss())
                .pipe(includeSourceMaps ? plugins.sourcemaps.write() : pipes.noop())
                .pipe(pipes.minifiedFileName())
+               .pipe(addTimestampToProductiveFiles ? rev() : pipes.noop())
                .pipe(gulp.dest(paths.distProd));
 };
 
 // moves font files to given environment
 pipes.processedFonts = function(basePath) {
-    return gulp.src(bowerFiles({
-                        filter: function(e) { return fontsStylesRegex.test(e); }
-                    }),
-                    {base: "bower_components"})
-               .pipe(plugins.rename(function (path) {
-                    var newPath, arrayPath = path.dirname.split("/");
+    return gulp.src(paths.fonts)
+               .pipe(gulp.dest(basePath));
+};
+
+// moves vendor font files to given environment
+pipes.processedVendorFonts = function(basePath) {
+    var vendorFontFiles = gulp.src(bowerFiles({
+                                       filter: function(e) { return fontsStylesRegex.test(e); }
+                                   }),
+                                   {base: "bower_components"}),
+        additionalFontFiles = gulp.src(additionalVendorFiles.fonts);
+ 
+    return es.merge(vendorFontFiles, additionalFontFiles)
+               .pipe(plugins.rename(function(path) {
+                    var newPath,
+                        arrayPath = path.dirname.split("/");
 
                     if( arrayPath.length > 1 ) {
-                        arrayPath.splice(0,1);
-                        newPath = "../" + arrayPath.join('/');
+                        arrayPath.splice(0, 1);
+                        newPath = "../" + arrayPath.join("/");
                     } else {
                         newPath = "./";
                     }
 
                     path.dirname = newPath;
                }))
-               .pipe(gulp.dest(basePath + "/styles"));
+               .pipe(gulp.dest(basePath + "/fonts"));
 };
 
 // moves image to "paths.distDev + '/images'" development environment
@@ -260,49 +345,53 @@ pipes.validatedIndex = function() {
 // validates and injects sources into index.html and moves it to "paths.distDev" development environment
 pipes.builtIndexDev = function() {
     var orderedVendorScripts = pipes.builtVendorScriptsDev().pipe(pipes.orderedVendorScripts()),
+        additionalVendorScripts = pipes.builtAdditionalVendorScriptsDev(),
         orderedAppScripts = pipes.builtAppScriptsDev().pipe(pipes.orderedAppScripts()),
         scriptedPartialsDev = pipes.scriptedPartialsDev(),
         appStyles = pipes.builtStylesDev(),
-        vendorStyles = pipes.builtVendorStylesDev();
+        orderedVendorStyles = pipes.builtVendorStylesDev().pipe(pipes.orderedVendorStyles());
 
     return pipes.validatedIndex()
                 .pipe(gulp.dest(paths.distDev)) // write first to get relative path for inject
                 .pipe(plugins.inject(orderedVendorScripts, {relative: true, name: "bower"}))
-                .pipe(plugins.inject(scriptedPartialsDev, {relative: true, name: 'templates'}))
+                .pipe(plugins.inject(additionalVendorScripts, {relative: true, name: "bower"}))
+                .pipe(plugins.inject(scriptedPartialsDev, {relative: true, name: "templates"}))
                 .pipe(plugins.inject(orderedAppScripts, {relative: true}))
                 .pipe(plugins.inject(appStyles, {relative: true}))
-                .pipe(plugins.inject(vendorStyles, {relative: true, name: 'bower'}))
+                .pipe(plugins.inject(orderedVendorStyles, {relative: true, name: "bower"}))
                 .pipe(gulp.dest(paths.distDev));
 };
 
 // validates and injects sources into index.html, minifies and moves it to "path.distProd" productive environment
 pipes.builtIndexProd = function() {
     var vendorScripts = pipes.builtVendorScriptsProd(),
+        additionalVendorScripts = pipes.builtAdditionalVendorScriptsProd(),
         scriptedPartialsProd = pipes.scriptedPartialsProd(),
         appScripts = pipes.builtAppScriptsProd(),
         appStyles = pipes.builtStylesProd(),
-        vendorStyles = pipes.builtVendorStylesProd();
+        orderedVendorStyles = pipes.builtVendorStylesProd().pipe(pipes.orderedVendorStyles());
 
     return pipes.validatedIndex()
                 .pipe(gulp.dest(paths.distProd)) // write first to get relative path for inject
                 .pipe(plugins.inject(vendorScripts, {relative: true, name: "bower"}))
-                .pipe(plugins.inject(scriptedPartialsProd, {relative: true, name: 'templates'}))
+                .pipe(plugins.inject(additionalVendorScripts, {relative: true, name: "bower"}))
+                .pipe(plugins.inject(scriptedPartialsProd, {relative: true, name: "templates"}))
                 .pipe(plugins.inject(appScripts, {relative: true}))
                 .pipe(plugins.inject(appStyles, {relative: true}))
-                .pipe(plugins.inject(vendorStyles, {relative: true, name: 'bower'}))
+                .pipe(plugins.inject(orderedVendorStyles, {relative: true, name: "bower"}))
                 .pipe(plugins.htmlmin({collapseWhitespace: true, removeComments: true}))
                 .pipe(gulp.dest(paths.distProd));
 };
 
 // builds a complete development environment
 pipes.builtAppDev = function() {
-    // return es.merge(pipes.builtIndexDev(), pipes.processedFonts(paths.distDev), pipes.builtPartialsDev(), pipes.processedImagesDev());
-    return es.merge(pipes.builtIndexDev(), pipes.processedFonts(paths.distDev), pipes.processedImagesDev());
+    // return es.merge(pipes.builtIndexDev(), pipes.processedVendorFonts(paths.distDev), pipes.builtPartialsDev(), pipes.processedImagesDev());
+    return es.merge(pipes.builtIndexDev(), pipes.processedFonts(paths.distDev), pipes.processedVendorFonts(paths.distDev), pipes.processedImagesDev());
 };
 
 // builds a complete productive environment
 pipes.builtAppProd = function() {
-    return es.merge(pipes.builtIndexProd(), pipes.processedFonts(paths.distProd), pipes.processedImagesProd());
+    return es.merge(pipes.builtIndexProd(), pipes.processedFonts(paths.distProd), pipes.processedVendorFonts(paths.distProd), pipes.processedImagesProd());
 };
 
 
@@ -403,7 +492,7 @@ gulp.task("watch-dev", ["clean-build-app-dev", "validate-devserver-scripts"], fu
            });
 
     // start live-reload server
-    plugins.livereload.listen({ start: true });
+    plugins.livereload.listen({start: true});
 
     // watch index
     gulp.watch(paths.index, function() {
@@ -426,6 +515,12 @@ gulp.task("watch-dev", ["clean-build-app-dev", "validate-devserver-scripts"], fu
     // watch styles
     gulp.watch(paths.styles, function() {
         return pipes.builtStylesDev()
+                    .pipe(plugins.livereload());
+    });
+
+    // watch fonts
+    gulp.watch(paths.fonts, function() {
+        return pipes.processedFonts(paths.distDev)
                     .pipe(plugins.livereload());
     });
 });
@@ -464,6 +559,12 @@ gulp.task("watch-prod", ["clean-build-app-prod", "validate-devserver-scripts"], 
     // watch styles
     gulp.watch(paths.styles, function() {
         return pipes.builtStylesProd()
+                    .pipe(plugins.livereload());
+    });
+
+    // watch fonts
+    gulp.watch(paths.fonts, function() {
+        return pipes.processedFonts(paths.distProd)
                     .pipe(plugins.livereload());
     });
 });
