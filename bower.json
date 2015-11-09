@@ -1,7 +1,7 @@
 {
   "name": "angular-best-practice",
   "description": "This is a best practice AngularJS package.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/eisbehr-/angular-best-practice",
   "authors": [{
     "name": "Daniel 'Eisbehr' Kern",
@@ -27,5 +27,8 @@
     "jquery": "^2.1.4",
     "bootstrap": "~3.3.0",
     "bootstrap-material-design": "~0.1.5"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.7"
   }
 }
