@@ -4,8 +4,8 @@ var gulp       = require("gulp");
 var rename     = require("gulp-rename");
 var es         = require("event-stream");
 var bowerFiles = require("main-bower-files");
+var pipes      = require("./pipes");
 var paths      = require("../config/paths");
-var pipes      = require("../config/pipes");
 var regex      = require("../config/regex");
 var additional = require("../config/additional");
 

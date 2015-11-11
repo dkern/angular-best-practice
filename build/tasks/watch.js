@@ -3,9 +3,9 @@
 var gulp       = require("gulp");
 var nodemon    = require("gulp-nodemon");
 var livereload = require("gulp-livereload");
+var pipes      = require("./pipes");
 var paths      = require("../config/paths");
 var server     = require("../config/server");
-var pipes      = require("../config/pipes");
 
 // clean, build, and watch live changes to the development environment
 gulp.task("watch-dev", ["clean-build-app-dev", "validate-server-scripts"], function() {

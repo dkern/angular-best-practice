@@ -3,8 +3,8 @@
 var gulp     = require("gulp");
 var jshint   = require("gulp-jshint");
 var htmlhint = require("gulp-htmlhint");
+var pipes    = require("./pipes");
 var paths    = require("../config/paths");
-var pipes    = require("../config/pipes");
 var server   = require("../config/server");
 
 // validate "path.scripts" with jshint

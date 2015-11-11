@@ -8,8 +8,8 @@ var ngHtml2js  = require("gulp-ng-html2js");
 var htmlhint   = require("gulp-htmlhint");
 var htmlmin    = require("gulp-htmlmin");
 var uglify     = require("gulp-uglify");
+var pipes      = require("./pipes");
 var paths      = require("../config/paths");
-var pipes      = require("../config/pipes");
 var partials   = require("../config/partials");
 var build      = require("../config/build");
 

@@ -3,8 +3,8 @@
 var gulp    = require("gulp");
 var inject  = require("gulp-inject");
 var htmlmin = require("gulp-htmlmin");
+var pipes   = require("./pipes");
 var paths   = require("../config/paths");
-var pipes   = require("../config/pipes");
 
 // validates and injects sources into index.html and moves it to "paths.distDev" development environment
 pipes.builtIndexDev = function() {

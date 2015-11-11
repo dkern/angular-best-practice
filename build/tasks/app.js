@@ -2,8 +2,8 @@
 
 var gulp  = require("gulp");
 var es    = require("event-stream");
+var pipes = require("./pipes");
 var paths = require("../config/paths");
-var pipes = require("../config/pipes");
 
 // builds a complete development environment
 pipes.builtAppDev = function() {

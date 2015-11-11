@@ -1,8 +1,8 @@
 "use strict";
 
 var gulp    = require("gulp");
+var pipes   = require("./pipes");
 var paths   = require("../config/paths");
-var pipes   = require("../config/pipes");
 
 // moves image to "paths.distDev + '/images'" development environment
 pipes.processedImagesDev = function() {
