@@ -12,6 +12,7 @@
     </div>
     <p>Results: <span class="results">{{result.length}}</span></p>
     <ul class="results">
+      <!-- 'ng-repeat' will repeat this element for every 'entry' in array 'controller.entries' -->
       <li ng-repeat="entry in controller.entries | startsWith:query | orderBy:'id' as result">
         <span class="text-muted">#{{entry.id}}.</span>
         <span class="text-info">{{entry.name}}</span>

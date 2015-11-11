@@ -6,8 +6,11 @@
     function practiceService() {
         var self = this;
 
+        // define public variables for this service
         self.publicFunction = publicFunction;
         self.verboseMessage = verboseMessage;
+
+        // function definitions below
 
         /**
          * a public service function

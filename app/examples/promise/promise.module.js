@@ -1,4 +1,7 @@
 (function() {
     "use strict";
-    angular.module("practice.promise", ["practice.core"]);
+    angular.module("practice.promise", [
+        // every module has 'practice.core' as dependency
+        "practice.core"
+    ]);
 })();

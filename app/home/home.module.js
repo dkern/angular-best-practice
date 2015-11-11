@@ -1,4 +1,7 @@
 (function() {
     "use strict";
-    angular.module("practice.home", ["practice.core"]);
+    angular.module("practice.home", [
+        // every module has 'practice.core' as dependency
+        "practice.core"
+    ]);
 })();

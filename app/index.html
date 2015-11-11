@@ -5,14 +5,16 @@
 <!--[if gt IE 8]><!--><html lang="en" ng-app="practice" ng-strict-di class="no-js"><!--<![endif]-->
   <head>
     <title>Angular Practice App</title>
-    <!-- bower:css -->
+    <!-- these markers tell gulp where to inject vendor and own css files -->
+    <!-- vendor:css -->
     <!-- endinject -->
     <!-- inject:css -->
     <!-- endinject -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
   </head>
   <body>
-    <nav ng-controller="practice.navController as controller" class="navbar navbar-default navbar-fixed-top">
+    <!-- the navigation has an own controller 'practice.core.navController' -->
+    <nav ng-controller="practice.core.navController as controller" class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <a ng-click="controller.resetActive()" class="navbar-brand" href="#/">Angular Best Practice</a>
@@ -30,6 +32,7 @@
         </div>
       </div>
     </nav>
+    <!-- 'ui-view' marks the entry point for our router to place loaded contents -->
     <section class="content container" ui-view></section>
     <footer>
       <div class="container text-right">
@@ -39,7 +42,8 @@
         </small>
       </div>
     </footer>
-    <!-- bower:js -->
+    <!-- these markers tell gulp where to inject vendor, template and ass js files -->
+    <!-- vendor:js -->
     <!-- endinject -->
     <!-- templates:js -->
     <!-- endinject -->

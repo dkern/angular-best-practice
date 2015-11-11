@@ -6,7 +6,7 @@ var methodOverride = require("method-override");
 var path           = require("path");
 var app            = express();
 var port           = process.env.PORT || 1337;
-var environment    = process.env.NODE_ENV || "development";
+var environment    = process.env.ENV || "development";
 
 // get all data/stuff of the body (POST) parameters
 app.use(bodyParser.json());

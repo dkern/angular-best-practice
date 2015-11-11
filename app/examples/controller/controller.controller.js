@@ -3,11 +3,16 @@
     angular.module("practice.controller")
            .controller("practice.controllerController", controllerController);
 
-    function controllerController() {
+    // always use $inject to make functions minify-able
+    // @see https://docs.angularjs.org/guide/di
+    controllerController.$inject = ["$location"];
+
+    function controllerController($location) {
         var self = this;
 
+        // define public variables for own scope
         self.headline = "View-Controller Example";
-        self.location = "app/examples/controller/";
+        self.location = "app/examples" + $location.path() + "/";
         self.files = [
             {name: "controller.module.js", description: "module creation"},
             {name: "controller.route.js", description: "module routing"},
@@ -16,8 +21,11 @@
         ];
         self.action = action;
 
+        // function definitions below
+
         /**
          * alert and log a simple message for demonstration
+         * @param {string} nameInput
          * @returns void
          */
         function action(nameInput) {

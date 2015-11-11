@@ -1,4 +1,7 @@
 (function() {
     "use strict";
-    angular.module("practice.directives", ["practice.core"]);
+    angular.module("practice.directives", [
+        // every module has 'practice.core' as dependency
+        "practice.core"
+    ]);
 })();

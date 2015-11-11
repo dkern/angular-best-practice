@@ -25,6 +25,7 @@
     "process": true,
     "by": true,
     "browser": true,
-    "element": true
+    "element": true,
+    "Buffer": true
   }
 }

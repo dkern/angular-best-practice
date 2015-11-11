@@ -5,6 +5,8 @@
 
     function filterController() {
         var self = this;
+
+        // define public variables for own scope
         self.entries = [
             {id: 1, name: "One little duck"},
             {id: 5, name: "Five little ducks"},
