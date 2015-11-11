@@ -17,6 +17,8 @@ module.exports = function(config) {
             // app - module definitions first
             'app/**/*.module.js',
             'app/**/*.js',
+            // templates
+            'app/**/*.html',
             // tests
             'tests/**/*.spec.js'
         ],
@@ -29,7 +31,9 @@ module.exports = function(config) {
 
         // pre-process matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
+        preprocessors: {
+            'app/examples/**/*.html': 'html2js'
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
@@ -57,7 +61,6 @@ module.exports = function(config) {
         browsers: [
             'Chrome',
             'Firefox',
-            //'Safari',
             'PhantomJS'
         ],
 
