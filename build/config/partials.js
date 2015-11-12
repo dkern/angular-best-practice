@@ -6,6 +6,6 @@ module.exports = {
     // enable template compilation in development environment
     compilePartialsInDev: true,
 
-    // enable template compilation in development environment
+    // enable template compilation in productive environment
     compilePartialsInProd: true
 };

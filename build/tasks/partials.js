@@ -1,17 +1,17 @@
 "use strict";
 
-var gulp       = require("gulp");
-var rev        = require("gulp-rev");
-var tap        = require("gulp-tap");
-var concat     = require("gulp-concat");
-var ngHtml2js  = require("gulp-ng-html2js");
-var htmlhint   = require("gulp-htmlhint");
-var htmlmin    = require("gulp-htmlmin");
-var uglify     = require("gulp-uglify");
-var pipes      = require("./pipes");
-var paths      = require("../config/paths");
-var partials   = require("../config/partials");
-var build      = require("../config/build");
+var gulp      = require("gulp");
+var rev       = require("gulp-rev");
+var tap       = require("gulp-tap");
+var concat    = require("gulp-concat");
+var ngHtml2js = require("gulp-ng-html2js");
+var htmlhint  = require("gulp-htmlhint");
+var htmlmin   = require("gulp-htmlmin");
+var uglify    = require("gulp-uglify");
+var pipes     = require("./pipes");
+var paths     = require("../config/paths");
+var partials  = require("../config/partials");
+var build     = require("../config/build");
 
 // moves html source files into "paths.distDev" development environment
 pipes.builtPartialsDev = function() {

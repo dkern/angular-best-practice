@@ -1,7 +1,7 @@
 var appRoot = "app/";
 var distRoot = "dist/";
 
-// path 
+// path configuration
 module.exports = {
     // app
     scripts: appRoot + "**/*.js",

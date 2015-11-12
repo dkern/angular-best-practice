@@ -1,14 +1,6 @@
 // orders for files to inject
 module.exports = {
-    vendorScripts: [
-        "jquery.js",
-        "jquery-*.js",
-        "angular.js",
-        "angular-*.js",
-        "bootstrap.js",
-        "bootstrap-*.js"
-    ],
-
+    // order for vendor styles
     vendorStyles: [
         "bootstrap.css",
         "bootstrap-*.css",
@@ -18,5 +10,15 @@ module.exports = {
         "material-wfont-*.css",
         "ripples.css",
         "ripples-*.css"
+    ],
+
+    // order for vendor scripts
+    vendorScripts: [
+        "jquery.js",
+        "jquery-*.js",
+        "angular.js",
+        "angular-*.js",
+        "bootstrap.js",
+        "bootstrap-*.js"
     ]
 };

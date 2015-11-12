@@ -11,9 +11,9 @@ module.exports = {
     // server files autoload path
     scripts: serverRoot + "**/*.js",
 
-    // use port on localhost for server running on 'watch-dev'
+    // port on localhost for server running on 'watch-dev'
     developmentPort: 1337,
 
-    // use port on localhost for server running on 'watch-prod'
+    // port on localhost for server running on 'watch-prod'
     productivePort: 1338
 };
